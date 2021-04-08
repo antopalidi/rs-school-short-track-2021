@@ -21,8 +21,44 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(matrix) {
+  return matrix.map((arrX, i) => arrX.map((el, k) => {
+    if (el) return 1;
+    let res = 0;
+
+    let top = 0;
+    if (i !== 0) top = matrix[i - 1][k] ? 1 : 0;
+
+    let right = 0;
+    if (k + 1 !== matrix[i].length) right = matrix[i][k + 1] ? 1 : 0;
+
+    let bottom = 0;
+    if (i + 1 !== matrix.length) bottom = matrix[i + 1][k] ? 1 : 0;
+
+    let left = 0;
+    if (k !== 0) left = matrix[i][k - 1] ? 1 : 0;
+
+    let topLeft = 0;
+    if (i !== 0 && k !== 0) topLeft = matrix[i - 1][k - 1] ? 1 : 0;
+
+    let bottomLeft = 0;
+    if (i + 1 !== matrix.length && k !== 0) {
+      bottomLeft = matrix[i + 1][k - 1] ? 1 : 0;
+    }
+
+    let topRight = 0;
+    if (i !== 0 && k + 1 !== matrix[i].length) {
+      topRight = matrix[i - 1][k + 1] ? 1 : 0;
+    }
+
+    let bottomRight = 0;
+    if (i + 1 !== matrix.length && k + 1 !== matrix[i].length) {
+      bottomRight = matrix[i + 1][k + 1] ? 1 : 0;
+    }
+
+    res = top + right + bottom + left + topLeft + topRight + bottomLeft + bottomRight;
+    return res;
+  }));
 }
 
 module.exports = minesweeper;
